@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "rulename")
-public class RuleName {
+@Table(name = "rule")
+public class Rule {
     @Id
     private Long id;
 

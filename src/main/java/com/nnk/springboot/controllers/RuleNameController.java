@@ -1,6 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domains.RuleName;
+import com.nnk.springboot.domains.Rule;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,12 +24,12 @@ public class RuleNameController {
     }
 
     @GetMapping("/ruleName/add")
-    public String addRuleForm(RuleName bid) {
+    public String addRuleForm(Rule bid) {
         return "ruleName/add";
     }
 
     @PostMapping("/ruleName/validate")
-    public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
+    public String validate(@Valid Rule ruleName, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return RuleName list
         return "ruleName/add";
     }
@@ -41,7 +41,7 @@ public class RuleNameController {
     }
 
     @PostMapping("/ruleName/update/{id}")
-    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
+    public String updateRuleName(@PathVariable("id") Integer id, @Valid Rule ruleName,
                              BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update RuleName and return RuleName list
         return "redirect:/ruleName/list";
