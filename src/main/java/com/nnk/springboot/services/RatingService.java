@@ -17,6 +17,6 @@ public class RatingService {
 
     public List<Rating> loadAll() {return ratingRepository.findAll();}
     public Optional<Rating> load(int id) {return ratingRepository.findById(id);}
-    public void save(Rating bid) {ratingRepository.save(bid);}
+    public void save(Rating rating) {ratingRepository.save(rating);}
     public void delete(int id){ratingRepository.deleteById(id);}
 }

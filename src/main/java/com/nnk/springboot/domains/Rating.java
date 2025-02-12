@@ -17,18 +17,22 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "moodysrating")
     @NotNull(message = "Moody's Rating is required")
     @Size(min = 1, message = "Moody's Rating cannot be empty")
     private String moodysRating;
 
+    @Column(name = "sandprating")
     @NotNull(message = "Send P Rating is required")
     @Size(min = 1, message = "Send P Rating cannot be empty")
     private String sandPRating;
 
+    @Column(name = "fitchrating")
     @NotNull(message = "Fitch Rating is required")
     @Size(min = 1, message = "Fitch Rating cannot be empty")
     private String fitchRating;
 
+    @Column(name = "ordernumber")
     @NotNull(message = "orderNumber must be greater or equal to 0")
     @Min(value = 0, message = "orderNumber must be greater or equal to 0")
     private int orderNumber;
