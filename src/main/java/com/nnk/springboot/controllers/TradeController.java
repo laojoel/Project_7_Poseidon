@@ -29,7 +29,7 @@ public class TradeController {
 
     @GetMapping("/trade/add")
     public String addTradeForm(Model model) {
-        model.addAttribute("trade", new Bid());
+        model.addAttribute("trade", new Trade());
         return "trade/add";
     }
 
@@ -52,7 +52,7 @@ public class TradeController {
     }
 
     @PostMapping("/trade/update/{id}")
-    public String updateBid(@Valid @ModelAttribute("trade") Trade trade, BindingResult result, Model model, HttpServletRequest request) {
+    public String updateTrade(@Valid @ModelAttribute("trade") Trade trade, BindingResult result, Model model, HttpServletRequest request) {
         if (result.hasErrors()) {return "trade/update";}
         tradeService.save(trade);
         model.addAttribute("trades", tradeService.loadAll());
@@ -61,7 +61,7 @@ public class TradeController {
     }
 
     @GetMapping("/trade/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id) {
+    public String deleteTrade(@PathVariable("id") Integer id) {
         tradeService.delete(id);
         return "redirect:/trade/list";
     }
