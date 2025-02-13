@@ -1,7 +1,7 @@
 package com.nnk.springboot.services;
 
-import com.nnk.springboot.domains.CurvePoint;
-import com.nnk.springboot.repositories.CurvePointRepository;
+import com.nnk.springboot.domains.Curve;
+import com.nnk.springboot.repositories.CurveRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,13 +14,13 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class CurvePointServiceTest {
+public class CurveServiceTest {
 
     @Mock
-    private CurvePointRepository curvePointRepository;
+    private CurveRepository curvePointRepository;
 
     @InjectMocks
-    private CurvePointService curvePointService;
+    private CurveService curvePointService;
 
     @BeforeEach
     public void setUp() {
@@ -30,13 +30,13 @@ public class CurvePointServiceTest {
     @Test
     public void testLoadAll() {
         // Arrange
-        CurvePoint curvePoint1 = new CurvePoint();
-        CurvePoint curvePoint2 = new CurvePoint();
-        List<CurvePoint> curvePoints = Arrays.asList(curvePoint1, curvePoint2);
+        Curve curvePoint1 = new Curve();
+        Curve curvePoint2 = new Curve();
+        List<Curve> curvePoints = Arrays.asList(curvePoint1, curvePoint2);
         when(curvePointRepository.findAll()).thenReturn(curvePoints);
 
         // Act
-        List<CurvePoint> result = curvePointService.loadAll();
+        List<Curve> result = curvePointService.loadAll();
 
         // Assert
         assertEquals(2, result.size());
@@ -47,11 +47,11 @@ public class CurvePointServiceTest {
     public void testLoad() {
         // Arrange
         int id = 1;
-        CurvePoint curvePoint = new CurvePoint();
+        Curve curvePoint = new Curve();
         when(curvePointRepository.findById(id)).thenReturn(Optional.of(curvePoint));
 
         // Act
-        Optional<CurvePoint> result = curvePointService.load(id);
+        Optional<Curve> result = curvePointService.load(id);
 
         // Assert
         assertTrue(result.isPresent());
@@ -62,7 +62,7 @@ public class CurvePointServiceTest {
     @Test
     public void testSave() {
         // Arrange
-        CurvePoint curvePoint = new CurvePoint();
+        Curve curvePoint = new Curve();
 
         // Act
         curvePointService.save(curvePoint);

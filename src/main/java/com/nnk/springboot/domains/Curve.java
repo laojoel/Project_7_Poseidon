@@ -1,18 +1,16 @@
 package com.nnk.springboot.domains;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
 @Entity
-@Table(name = "curvepoint")
-public class CurvePoint {
+@Table(name = "curve")
+public class Curve {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

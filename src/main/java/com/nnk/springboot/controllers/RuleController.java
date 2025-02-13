@@ -1,6 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domains.Bid;
 import com.nnk.springboot.domains.Rule;
 import com.nnk.springboot.services.RuleService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,13 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
-
-//import javax.validation.Valid;
 
 @Controller
 public class RuleController {
+
     @Autowired
     RuleService ruleService;
 
@@ -35,7 +32,6 @@ public class RuleController {
 
     @PostMapping("/rule/validate")
     public String validate(@Valid @ModelAttribute("rule") Rule rule, BindingResult result, Model model, HttpServletRequest request) {
-        System.out.println("FLUX OK ------------------------------------------------- .");
         if (result.hasErrors()) {return "rule/add";}
         ruleService.save(rule);
         model.addAttribute("rules", ruleService.loadAll());

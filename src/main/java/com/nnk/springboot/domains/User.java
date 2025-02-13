@@ -23,10 +23,4 @@ public class User {
     private String fullname;
     @NotBlank(message = "Role is mandatory")
     private String role;
-
-    public User() {
-
-    }
-    public User(String username, String password, String role) {
-    }
 }

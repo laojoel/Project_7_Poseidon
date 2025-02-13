@@ -1,6 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domains.Bid;
 import com.nnk.springboot.domains.Rating;
 import com.nnk.springboot.services.RatingService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,8 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
-//import javax.validation.Valid;
 
 @Controller
 public class RatingController {

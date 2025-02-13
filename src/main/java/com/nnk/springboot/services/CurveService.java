@@ -1,27 +1,27 @@
 package com.nnk.springboot.services;
 
-import com.nnk.springboot.domains.CurvePoint;
-import com.nnk.springboot.repositories.CurvePointRepository;
+import com.nnk.springboot.domains.Curve;
+import com.nnk.springboot.repositories.CurveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CurvePointService {
+public class CurveService {
 
     @Autowired
-    private CurvePointRepository curvePointRepository;
+    private CurveRepository curvePointRepository;
 
-    public List<CurvePoint> loadAll() {
+    public List<Curve> loadAll() {
         return curvePointRepository.findAll();
     }
 
-    public Optional<CurvePoint> load(int id) {
+    public Optional<Curve> load(int id) {
         return curvePointRepository.findById(id);
 
     }
-    public void save(CurvePoint curvePoint) {
+    public void save(Curve curvePoint) {
         curvePointRepository.save(curvePoint);
     }
 

@@ -1,7 +1,6 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domains.Bid;
-import com.nnk.springboot.domains.User;
 import com.nnk.springboot.services.BidService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -10,15 +9,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-//import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
-
+import java.util.NoSuchElementException;
 
 @Controller
 public class BidController {
-    @Autowired private BidService bidService;
+    private BidService bidService;
+    @Autowired
+    public void setBidService(BidService bidService) {
+        this.bidService = bidService;
+    }
+    //@Autowired private BidService bidService;
 
     @RequestMapping("/bid/list")
     public String home(HttpServletRequest request, Model model)  {
