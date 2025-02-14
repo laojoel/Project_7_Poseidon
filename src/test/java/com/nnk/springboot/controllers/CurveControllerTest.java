@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domains.Bid;
-import com.nnk.springboot.services.BidService;
+import com.nnk.springboot.domains.Curve;
+import com.nnk.springboot.services.CurveService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -21,111 +21,107 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class CurveControllerTest {
 
-    private BidService bidService;
+    private CurveService curveService;
     private MockMvc mockMvc;
 
     @BeforeEach
     public void setUp() {
-        bidService = Mockito.mock(BidService.class);
-        BidController bidController = new BidController();
-        bidController.setBidService(bidService);
-        mockMvc = MockMvcBuilders.standaloneSetup(bidController).build();
+        curveService = Mockito.mock(CurveService.class);
+        CurveController curveController = new CurveController();
+        curveController.setCurveService(curveService);
+        mockMvc = MockMvcBuilders.standaloneSetup(curveController).build();
     }
 
     @Test
     public void testHome() throws Exception {
-        List<Bid> bids = new ArrayList<>();
-        when(bidService.loadAll()).thenReturn(bids);
+        List<Curve> curves = new ArrayList<>();
+        when(curveService.loadAll()).thenReturn(curves);
 
-        mockMvc.perform(get("/bid/list"))
+        mockMvc.perform(get("/curve/list"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("bid/list"))
-                .andExpect(model().attribute("bids", bids));
+                .andExpect(view().name("curve/list"))
+                .andExpect(model().attribute("curves", curves));
     }
 
     @Test
-    public void testAddBidForm() throws Exception {
-        mockMvc.perform(get("/bid/add"))
+    public void testAddCurveForm() throws Exception {
+        mockMvc.perform(get("/curve/add"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("bid/add"))
-                .andExpect(model().attributeExists("bid"));
+                .andExpect(view().name("curve/add"))
+                .andExpect(model().attributeExists("curve"));
     }
 
     @Test
-    public void testValidateBid_Success() throws Exception {
-        when(bidService.loadAll()).thenReturn(new ArrayList<>());
+    public void testValidate_Success() throws Exception {
+        when(curveService.loadAll()).thenReturn(new ArrayList<>());
 
-        mockMvc.perform(post("/bid/validate")
+        mockMvc.perform(post("/curve/validate")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("account", "Test Account")
-                        .param("type", "Test Type")
-                        .param("quantity", "10"))
+                        .param("term", "20.8")
+                        .param("value", "10.5"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("bid/list"))
-                .andExpect(model().attributeExists("bids"));
+                .andExpect(view().name("curve/list"))
+                .andExpect(model().attributeExists("curves"));
     }
 
     @Test
-    public void testValidateBid_Failure() throws Exception {
-        mockMvc.perform(post("/bid/validate")
+    public void testValidateCurve_Failure() throws Exception {
+        mockMvc.perform(post("/curve/validate")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("account", "")
-                        .param("type", "")
-                        .param("quantity", "0"))
+                        .param("term", "")
+                        .param("value", ""))
                 .andExpect(status().isOk())
-                .andExpect(view().name("bid/add"))
-                .andExpect(model().attributeExists("bid"))
-                .andExpect(model().attributeHasFieldErrors("bid", "account"));
+                .andExpect(view().name("curve/add"))
+                .andExpect(model().attributeExists("curve"))
+                .andExpect(model().attributeHasFieldErrors("curve", "term"));
     }
 
     @Test
     public void testShowUpdateForm_Success() throws Exception {
-        Bid bid = new Bid();
-        when(bidService.load(anyInt())).thenReturn(Optional.of(bid));
+        Curve curve = new Curve();
+        when(curveService.load(anyInt())).thenReturn(Optional.of(curve));
 
-        mockMvc.perform(get("/bid/update/1"))
+        mockMvc.perform(get("/curve/update/1"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("bid/update"))
-                .andExpect(model().attribute("bid", bid));
+                .andExpect(view().name("curve/update"))
+                .andExpect(model().attribute("curve", curve));
     }
 
     @Test
     public void testShowUpdateForm_Failure() throws Exception {
-        when(bidService.load(anyInt())).thenReturn(Optional.empty());
+        when(curveService.load(anyInt())).thenReturn(Optional.empty());
 
-        mockMvc.perform(get("/bid/update/1"))
+        mockMvc.perform(get("/curve/update/1"))
                 .andExpect(status().isFound())
-                .andExpect(view().name("redirect:/bid/list"));
+                .andExpect(view().name("redirect:/curve/list"));
     }
 
     @Test
-    public void testUpdateBid_Success() throws Exception {
-        mockMvc.perform(post("/bid/update/1")
+    public void testUpdateCurve_Success() throws Exception {
+        mockMvc.perform(post("/curve/update/1")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("account", "test account")
-                        .param("type", "test password")
-                        .param("quantity", "10"))
+                        .param("term", "20.8")
+                        .param("value", "10.5"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("bid/list"));
+                .andExpect(view().name("curve/list"));
     }
 
     @Test
-    public void testUpdateBid_Failure() throws Exception {
-        mockMvc.perform(post("/bid/update/1")
+    public void testUpdateCurve_Failure() throws Exception {
+        mockMvc.perform(post("/curve/update/1")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .param("account", "")
-                        .param("type", "")
-                        .param("quantity", "0"))
+                        .param("term", "")
+                        .param("value", ""))
                 .andExpect(status().isOk())
-                .andExpect(view().name("bid/update"));
+                .andExpect(view().name("curve/update"));
     }
 
     @Test
-    public void testDeleteBid() throws Exception {
-        mockMvc.perform(get("/bid/delete/1"))
+    public void testDeleteCurve() throws Exception {
+        mockMvc.perform(get("/curve/delete/1"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/bid/list"));
+                .andExpect(redirectedUrl("/curve/list"));
 
-        Mockito.verify(bidService).delete(1);
+        Mockito.verify(curveService).delete(1);
     }
 }

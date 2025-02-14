@@ -14,8 +14,11 @@ import java.util.Optional;
 @Controller
 public class RuleController {
 
-    @Autowired
     RuleService ruleService;
+    @Autowired
+    public void setRuleService(RuleService ruleService) {
+        this.ruleService = ruleService;
+    }
 
     @RequestMapping("/rule/list")
     public String home(HttpServletRequest request, Model model)  {

@@ -19,7 +19,6 @@ public class CurveService {
 
     public Optional<Curve> load(int id) {
         return curvePointRepository.findById(id);
-
     }
     public void save(Curve curvePoint) {
         curvePointRepository.save(curvePoint);

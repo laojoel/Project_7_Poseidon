@@ -13,8 +13,12 @@ import java.util.Optional;
 
 @Controller
 public class TradeController {
-    @Autowired
+
     TradeService tradeService;
+    @Autowired
+    public void setTradeService(TradeService tradeService) {
+        this.tradeService = tradeService;
+    }
 
     @RequestMapping("/trade/list")
     public String home(HttpServletRequest request, Model model)  {

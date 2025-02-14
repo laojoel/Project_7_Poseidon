@@ -14,7 +14,12 @@ import java.util.Optional;
 
 @Controller
 public class RatingController {
-    @Autowired RatingService ratingService;
+
+    RatingService ratingService;
+    @Autowired
+    public void setRatingService(RatingService ratingService) {
+        this.ratingService = ratingService;
+    }
 
     @RequestMapping("/rating/list")
     public String home(HttpServletRequest request, Model model)  {

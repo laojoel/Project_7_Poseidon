@@ -51,7 +51,7 @@ public class BidControllerTest {
     }
 
     @Test
-    public void testValidateBid_Success() throws Exception {
+    public void testValidate_Success() throws Exception {
         when(bidService.loadAll()).thenReturn(new ArrayList<>());
 
         mockMvc.perform(post("/bid/validate")

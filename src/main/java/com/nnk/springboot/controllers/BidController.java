@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
-import java.util.NoSuchElementException;
 
 @Controller
 public class BidController {
@@ -19,7 +18,6 @@ public class BidController {
     public void setBidService(BidService bidService) {
         this.bidService = bidService;
     }
-    //@Autowired private BidService bidService;
 
     @RequestMapping("/bid/list")
     public String home(HttpServletRequest request, Model model)  {

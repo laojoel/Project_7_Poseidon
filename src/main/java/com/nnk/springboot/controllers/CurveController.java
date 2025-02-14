@@ -14,7 +14,11 @@ import java.util.Optional;
 
 @Controller
 public class CurveController {
-    @Autowired private CurveService curveService;
+    private CurveService curveService;
+    @Autowired
+    public void setCurveService(CurveService curveService) {
+        this.curveService = curveService;
+    }
 
     @RequestMapping("/curve/list")
     public String home(HttpServletRequest request, Model model) {
