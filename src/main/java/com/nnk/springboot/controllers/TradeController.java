@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domains.Trade;
 import com.nnk.springboot.services.TradeService;
+import com.nnk.springboot.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +15,24 @@ import java.util.Optional;
 @Controller
 public class TradeController {
 
-    TradeService tradeService;
+    private TradeService tradeService;
+    private UserService userService;
+
     @Autowired
     public void setTradeService(TradeService tradeService) {
         this.tradeService = tradeService;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @RequestMapping("/trade/list")
     public String home(HttpServletRequest request, Model model)  {
         model.addAttribute("trades", tradeService.loadAll());
         model.addAttribute("remoteUser", request.getRemoteUser());
+        model.addAttribute("remoteRole", userService.getRemoteRole());
         return "trade/list";
     }
 
@@ -39,6 +48,7 @@ public class TradeController {
         tradeService.save(trade);
         model.addAttribute("trades", tradeService.loadAll());
         model.addAttribute("remoteUser", request.getRemoteUser());
+        model.addAttribute("remoteRole", userService.getRemoteRole());
         return "trade/list";
     }
     @GetMapping("/trade/update/{id}")
@@ -57,6 +67,7 @@ public class TradeController {
         tradeService.save(trade);
         model.addAttribute("trades", tradeService.loadAll());
         model.addAttribute("remoteUser", request.getRemoteUser());
+        model.addAttribute("remoteRole", userService.getRemoteRole());
         return "trade/list";
     }
 

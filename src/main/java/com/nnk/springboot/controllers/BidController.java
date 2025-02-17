@@ -14,8 +14,10 @@ import java.util.Optional;
 
 @Controller
 public class BidController {
+
     private BidService bidService;
     private UserService userService;
+
     @Autowired
     public void setBidService(BidService bidService) {
         this.bidService = bidService;
@@ -63,6 +65,7 @@ public class BidController {
         bidService.save(bid);
         model.addAttribute("bids", bidService.loadAll());
         model.addAttribute("remoteUser", request.getRemoteUser());
+        model.addAttribute("remoteRole", userService.getRemoteRole());
         return "bid/list";
     }
 

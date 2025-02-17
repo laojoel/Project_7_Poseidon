@@ -2,7 +2,6 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domains.User;
 import com.nnk.springboot.repositories.UserRepository;
-import com.nnk.springboot.services.BidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 
     private UserRepository userRepository;
+
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;

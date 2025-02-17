@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domains.Curve;
 import com.nnk.springboot.services.CurveService;
+import com.nnk.springboot.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +15,25 @@ import java.util.Optional;
 
 @Controller
 public class CurveController {
+
     private CurveService curveService;
+    private UserService userService;
+
     @Autowired
     public void setCurveService(CurveService curveService) {
         this.curveService = curveService;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @RequestMapping("/curve/list")
     public String home(HttpServletRequest request, Model model) {
         model.addAttribute("curves", curveService.loadAll());
         model.addAttribute("remoteUser", request.getRemoteUser());
+        model.addAttribute("remoteRole", userService.getRemoteRole());
         return "curve/list";
     }
 
@@ -39,6 +49,7 @@ public class CurveController {
         curveService.save(curve);
         model.addAttribute("curves", curveService.loadAll());
         model.addAttribute("remoteUser", request.getRemoteUser());
+        model.addAttribute("remoteRole", userService.getRemoteRole());
         return "curve/list";
     }
 
@@ -58,6 +69,7 @@ public class CurveController {
         curveService.save(curve);
         model.addAttribute("curves", curveService.loadAll());
         model.addAttribute("remoteUser", request.getRemoteUser());
+        model.addAttribute("remoteRole", userService.getRemoteRole());
         return "curve/list";
     }
 
