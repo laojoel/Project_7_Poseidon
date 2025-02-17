@@ -19,7 +19,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(authz -> authz
-                //.requestMatchers("/login", "register").permitAll()
                 .requestMatchers("/login", "/register", "/css/**", "/images/**", "/js/**").permitAll()
                 .requestMatchers("user/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("admin/**").hasRole("ADMIN")
@@ -33,9 +32,10 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/app/login?logout=true")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
+                        .logoutSuccessUrl("/app/login?logout=true")
+                        .permitAll()
                 )
                 .csrf(csrf -> csrf.disable());
 
