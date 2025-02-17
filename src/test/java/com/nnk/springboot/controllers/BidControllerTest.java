@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domains.Bid;
 import com.nnk.springboot.services.BidService;
+import com.nnk.springboot.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -26,8 +27,10 @@ public class BidControllerTest {
     @BeforeEach
     public void setUp() {
         bidService = Mockito.mock(BidService.class);
+        UserService userService = Mockito.mock(UserService.class);
         BidController bidController = new BidController();
         bidController.setBidService(bidService);
+        bidController.setUserService(userService);
         mockMvc = MockMvcBuilders.standaloneSetup(bidController).build();
     }
 

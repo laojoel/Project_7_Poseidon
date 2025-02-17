@@ -31,7 +31,7 @@ public class CustomUserDetailsServiceTest {
         User user = new User();
         user.setUsername("testUser");
         user.setPassword("password");
-        user.setRole("ROLE_USER");
+        user.setRole("user");
         when(userRepository.findByUsername("testUser")).thenReturn(user);
 
         // Act
@@ -52,9 +52,7 @@ public class CustomUserDetailsServiceTest {
         when(userRepository.findByUsername(username)).thenReturn(null);
 
         // Act
-        assertThrows(UsernameNotFoundException.class, () -> {
-            customUserDetailsService.loadUserByUsername(username);
-        });
+        assertThrows(UsernameNotFoundException.class, () -> customUserDetailsService.loadUserByUsername(username));
 
         // Assert
         verify(userRepository, times(1)).findByUsername(username);

@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domains.Rating;
 import com.nnk.springboot.services.RatingService;
+import com.nnk.springboot.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -27,8 +28,10 @@ public class RatingControllerTest {
     @BeforeEach
     public void setUp() {
         ratingService = Mockito.mock(RatingService.class);
+        UserService userService = Mockito.mock(UserService.class);
         RatingController ratingController = new RatingController();
         ratingController.setRatingService(ratingService);
+        ratingController.setUserService(userService);
         mockMvc = MockMvcBuilders.standaloneSetup(ratingController).build();
     }
 

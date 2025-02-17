@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domains.Trade;
 import com.nnk.springboot.services.TradeService;
+import com.nnk.springboot.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -27,8 +28,10 @@ public class TradeControllerTest {
     @BeforeEach
     public void setUp() {
         tradeService = Mockito.mock(TradeService.class);
+        UserService userService = Mockito.mock(UserService.class);
         TradeController tradeController = new TradeController();
         tradeController.setTradeService(tradeService);
+        tradeController.setUserService(userService);
         mockMvc = MockMvcBuilders.standaloneSetup(tradeController).build();
     }
 

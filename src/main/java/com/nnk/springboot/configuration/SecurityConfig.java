@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +22,6 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(authz -> authz
                 .requestMatchers("/login", "/register", "/css/**", "/images/**", "/js/**").permitAll()
                 .requestMatchers("user/**").hasRole("ADMIN")
-                //.requestMatchers("admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
         )
                 .formLogin(form -> form
@@ -37,7 +37,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/app/login?logout=true")
                         .permitAll()
                 )
-                .csrf(csrf -> csrf.disable());
+                .csrf(AbstractHttpConfigurer::disable);
 
                 return httpSecurity.build();
     }

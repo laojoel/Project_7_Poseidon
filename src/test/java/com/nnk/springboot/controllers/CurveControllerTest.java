@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domains.Curve;
 import com.nnk.springboot.services.CurveService;
+import com.nnk.springboot.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -27,8 +28,10 @@ public class CurveControllerTest {
     @BeforeEach
     public void setUp() {
         curveService = Mockito.mock(CurveService.class);
+        UserService userService = Mockito.mock(UserService.class);
         CurveController curveController = new CurveController();
         curveController.setCurveService(curveService);
+        curveController.setUserService(userService);
         mockMvc = MockMvcBuilders.standaloneSetup(curveController).build();
     }
 

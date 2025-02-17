@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domains.Rule;
 import com.nnk.springboot.services.RuleService;
+import com.nnk.springboot.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -27,8 +28,10 @@ public class RuleControllerTest {
     @BeforeEach
     public void setUp() {
         ruleService = Mockito.mock(RuleService.class);
+        UserService userService = Mockito.mock(UserService.class);
         RuleController ruleController = new RuleController();
         ruleController.setRuleService(ruleService);
+        ruleController.setUserService(userService);
         mockMvc = MockMvcBuilders.standaloneSetup(ruleController).build();
     }
 

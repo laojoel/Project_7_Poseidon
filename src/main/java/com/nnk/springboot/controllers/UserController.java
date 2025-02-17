@@ -38,16 +38,15 @@ public class UserController {
 
     @PostMapping("/user/validate")
     public String validate(@Valid  @ModelAttribute("user") User user, BindingResult result, Model model, HttpServletRequest request) {
-        if (!result.hasErrors()) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(user.getPassword()));
-            userService.save(user);
-            model.addAttribute("users", userService.loadAll());
-            model.addAttribute("remoteUser", request.getRemoteUser());
-            model.addAttribute("remoteRole", userService.getRemoteRole());
-            return "redirect:/user/list";
-        }
-        return "user/add";
+        if (result.hasErrors()) {return "user/add";}
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
+        userService.save(user);
+        model.addAttribute("users", userService.loadAll());
+        model.addAttribute("remoteUser", request.getRemoteUser());
+        model.addAttribute("remoteRole", userService.getRemoteRole());
+        return "/user/list";
     }
 
     @GetMapping("/user/update/{id}")
@@ -62,15 +61,14 @@ public class UserController {
 
     @PostMapping("/user/update/{id}")
     public String updateUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model, HttpServletRequest request) {
-        if (result.hasErrors()) { System.out.println("error update: " + result.getAllErrors()); return "user/update";}
-        System.out.println("clear update");
+        if (result.hasErrors()) {return "user/update";}
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
         userService.save(user);
         model.addAttribute("users", userService.loadAll());
         model.addAttribute("remoteUser", request.getRemoteUser());
         model.addAttribute("remoteRole", userService.getRemoteRole());
-        return "redirect:/user/list";
+        return "/user/list";
     }
 
     @GetMapping("/user/delete/{id}")
