@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domains.Bid;
 import com.nnk.springboot.services.BidService;
+import com.nnk.springboot.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +15,21 @@ import java.util.Optional;
 @Controller
 public class BidController {
     private BidService bidService;
+    private UserService userService;
     @Autowired
     public void setBidService(BidService bidService) {
         this.bidService = bidService;
+    }
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @RequestMapping("/bid/list")
     public String home(HttpServletRequest request, Model model)  {
         model.addAttribute("bids", bidService.loadAll());
         model.addAttribute("remoteUser", request.getRemoteUser());
+        model.addAttribute("remoteRole", userService.getRemoteRole());
         return "bid/list";
     }
 
@@ -37,6 +44,7 @@ public class BidController {
         bidService.save(bid);
         model.addAttribute("bids", bidService.loadAll());
         model.addAttribute("remoteUser", request.getRemoteUser());
+        model.addAttribute("remoteRole", userService.getRemoteRole());
         return "bid/list";
     }
     @GetMapping("/bid/update/{id}")
